@@ -1,0 +1,50 @@
+<!DOCTYPE	html>
+<html	lang="en">
+<head>
+	<meta charset="utf-8">
+    <title>A	tiny	document</title>
+</head>
+<body>
+<h1>Chat</h1>
+<div class="layer">
+	<textarea 
+	    name="message history",
+	    rows=20
+	    cols=50
+	    placeholder="History is empty"
+		wrap=true
+	>
+	</textarea>
+	<textarea 
+	    name="message history",
+	    rows=5
+	    cols=50
+	    placeholder="History is empty"
+		wrap=true
+	>
+	</textarea>
+	<textarea 
+	    name="message history",
+	    rows=1
+	    cols=50
+	    placeholder="History is empty"
+		wrap=true
+	>
+	</textarea>
+	
+</div>
+<div>
+	<button name="send">
+	</button>
+	<button name="change">
+	</button>
+	<button name="save">
+	</button>
+</div>
+<div>
+<svg height="100" width="100">
+  <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+</svg>		
+</div>
+</body>
+</html>

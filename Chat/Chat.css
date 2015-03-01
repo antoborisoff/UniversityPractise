@@ -1,0 +1,63 @@
+.right1{
+		position:absolute;
+		top:15%;
+		left:5%;
+	}
+.right2{
+		position:absolute;
+		top:65%;
+		left:5%;
+	}
+.left1{
+		position:absolute;
+		top:36%;
+		right:5%;
+	}
+.left2{
+		position:absolute;
+		top:65%;
+		right:5%;
+	}
+h1{
+		color:skyblue;
+		margin-left:5%;
+	}
+.indicator{
+		position:absolute;
+		right:15%;
+		top:15%;
+	}
+.button_send{
+		position:absolute;
+		left:5%;
+		top:82%;
+	}
+.button_edit{
+		position:absolute;
+		right:5%;
+		top:80%;
+	}
+.button_save{
+		position:absolute;
+		right:15%;
+		top:80%;
+	}
+button{
+		border:solid black;
+		border-width:1px;
+		background:Skyblue;
+		border-radius:10px;
+	}
+textarea{ 
+		border:solid black;
+		border-width:1px;
+		background:white;
+		border-radius:3px;
+		padding:5px;
+		overflow:auto;
+                background:Lightblue;
+	}
+body{
+                background:url("water.jpg");
+
+	}

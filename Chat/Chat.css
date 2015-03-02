@@ -1,22 +1,28 @@
-.right1{
+.message_history{
 		position:absolute;
-		top:15%;
-		left:5%;
+		top:20px;
+		left:50px;
+                width:50px;
 	}
-.right2{
+.message{
 		position:absolute;
-		top:65%;
-		left:5%;
+		top:320px;
+		left:50px;
+                width:50px;
 	}
-.left1{
+.friends_list{
 		position:absolute;
-		top:36%;
-		right:5%;
+		top:120px;
+		left:500px;
+                width:50px;
+
 	}
-.left2{
+.username{
 		position:absolute;
-		top:65%;
-		right:5%;
+		top:320px;
+		left:500px;
+                width:50px;
+
 	}
 h1{
 		color:skyblue;
@@ -24,23 +30,23 @@ h1{
 	}
 .indicator{
 		position:absolute;
-		right:15%;
-		top:15%;
+		left:500px;
+		top:20px;
 	}
 .button_send{
 		position:absolute;
-		left:5%;
-		top:82%;
+		left:50px;
+		top:400px;
 	}
 .button_edit{
 		position:absolute;
-		right:5%;
-		top:80%;
+		left:500px;
+		top:350px;
 	}
 .button_save{
 		position:absolute;
-		right:15%;
-		top:80%;
+		left:550px;
+		top:350px;
 	}
 button{
 		border:solid black;
@@ -61,3 +67,7 @@ body{
                 background:url("water.jpg");
 
 	}
+.wrapper{
+                position:relative;
+                
+        }

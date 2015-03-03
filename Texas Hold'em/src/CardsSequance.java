@@ -9,10 +9,10 @@ public class CardsSequance {
     private MyList cardsgroupedbyvalue;
     private boolean groupedbyvalue;
     private ArrayList<Card> combination;
-    private static String cards=" 1C 2C 3C 4C 5C 6C 7C 8C 9C JC QC KC AC"
-                              + " 1D 2D 3D 4D 5D 6D 7D 8D 9D JD QD KD AD"
-                              + " 1S 2S 3S 4S 5S 6S 7S 8S 9S JS QS KS AS"
-                              + " 1H 2H 3H 4H 5H 6H 7H 8H 9H JH QH KH AH";
+    private static String cards=" 2C 3C 4C 5C 6C 7C 8C 9C JC QC KC AC"
+                              + " 2D 3D 4D 5D 6D 7D 8D 9D JD QD KD AD"
+                              + " 2S 3S 4S 5S 6S 7S 8S 9S JS QS KS AS"
+                              + " 2H 3H 4H 5H 6H 7H 8H 9H JH QH KH AH";
     private static int cardslength=2;
     private static int handcardsnum=2;
     private static int comblength=5;
@@ -45,12 +45,12 @@ public class CardsSequance {
             }
             pos=availablecards.indexOf(buf);
             if(pos==-1){
-                throw new MyException(buf+" cards is not available!");
+                throw new MyException(buf+" card is not available!");
             }
             else{
                 ressequance.append(" ");
                 ressequance.append(buf);
-                availablecards.delete(pos,cardslength);
+                availablecards.delete(pos,pos+cardslength+1);
             }
         }
         return new String(ressequance);
@@ -63,16 +63,24 @@ public class CardsSequance {
         if(availablecards.length()/(cardslength+1)<numofcards){
             throw new MyException("Not enough cards!");
         }
-        int dev=availablecards.length()/(cardslength+1);
+        int div=availablecards.length()/(cardslength+1);
         int cardpos;
+        int cardnumber;
         while(numofcards>0){
-            cardpos=rand.nextInt()/dev;
-            res=res.append(availablecards.delete(dev, cardslength+1));
+            cardnumber=Math.abs(rand.nextInt()%div);
+            int buf=availablecards.length();
+            cardpos=(cardslength+1)*cardnumber;
+            res=res.append(availablecards.substring(cardpos, cardpos+cardslength+1));
+            availablecards.delete(cardpos, cardpos+cardslength+1);
             numofcards=numofcards-1;
-            dev=dev-1;
+            div=div-1;
         }
         return new String(res);
     }
+    public String toString(){
+        return sequance;
+    }
+    
     
     public void splitInCards() throws MyException{
         if(sequance==null){
@@ -300,7 +308,7 @@ public class CardsSequance {
     public static int getCombLength(){
         return comblength;
     }
-    public boolean checkForStreet() throws MyException{
+   /* public boolean checkForStreet() throws MyException{
          if(sequance==null){
             throw new MyException("No cards!");
         }
@@ -318,5 +326,5 @@ public class CardsSequance {
         else{
             return false;
         }
-    }
+    }*/
 }

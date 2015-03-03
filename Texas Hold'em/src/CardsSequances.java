@@ -29,4 +29,10 @@ public class CardsSequances {
         fos.close();
         ps.close();
     }
+    public void printSequances(){
+        Iterator<CardsSequance> it=sequances.iterator();
+        while(it.hasNext()){
+            System.out.println(it.next());
+        }
+    }
 }

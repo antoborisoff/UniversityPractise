@@ -98,6 +98,34 @@ public class CardsSequance {
         }
         split=true;
     }
+    public void addSpecialCard() throws MyException{
+        Iterator<Card> it=splitcards.iterator();
+        Card buf;
+        ArrayList<Card> specialcards=new ArrayList<Card>();
+        while(it.hasNext()){
+            buf=it.next();
+            if(buf.getValue()==buf.getACEVALUE()){
+                switch(buf.getSuit())
+                {
+                    case 1:
+                        specialcards.add(new Card("1C",buf.isHandCard()));
+                        break;
+                    case 2:
+                        specialcards.add(new Card("1S",buf.isHandCard()));
+                        break;
+                    case 3:
+                        specialcards.add(new Card("1H", buf.isHandCard()));
+                        break;
+                    case 4:
+                        specialcards.add(new Card("1D", buf.isHandCard()));
+                        break;
+                    default: 
+                        throw new MyException("Impossible ace value!");
+                }
+            }
+        }
+        splitcards.addAll(specialcards);
+    }
     public void sortSplitCardsBySuitValue(){
         Collections.sort(splitcards,new Comp());
         splitcardssotred=true;
@@ -187,6 +215,8 @@ public class CardsSequance {
             }
         }
     }
+    
+    
     public void groupCardsByValue() throws MyException{
         if(!split){
             this.splitInCards();

@@ -4,7 +4,7 @@ import java.io.*;
 public class CardsSequance {
     private String sequance;
     private ArrayList<Card> splitcards;
-    private boolean splitted;
+    private boolean split;
     private boolean splitcardssotred;
     private MyList cardsgroupedbyvalue;
     private boolean groupedbyvalue;
@@ -96,12 +96,20 @@ public class CardsSequance {
                 splitcards.add(new Card(st.nextToken(), false));
             }
         }
-        splitted=true;
+        split=true;
     }
-    public void sortCards(){
+    public void sortSplitCardsBySuitValue(){
         Collections.sort(splitcards,new Comp());
         splitcardssotred=true;
     }
+    public void printSplitCards(){
+        Iterator<Card> it=splitcards.iterator();
+        while(it.hasNext()){
+            System.out.println(it.next());
+        }
+    }
+    
+    
     public boolean checkForRoyalStreetFlash() throws MyException{
         if(sequance==null){
             throw new MyException("No cards!");
@@ -110,7 +118,7 @@ public class CardsSequance {
             return false;
         }
         if(!splitcardssotred){
-            this.sortCards();
+            this.sortSplitCardsBySuitValue();
         }
         Iterator<Card> it=splitcards.iterator();
         if(!it.hasNext()){
@@ -180,11 +188,11 @@ public class CardsSequance {
         }
     }
     public void groupCardsByValue() throws MyException{
-        if(!splitted){
+        if(!split){
             this.splitInCards();
         }
         if(!splitcardssotred){
-            this.sortCards();
+            this.sortSplitCardsBySuitValue();
         }
         Iterator<Card> it=splitcards.iterator();
         while(it.hasNext()){
@@ -238,7 +246,7 @@ public class CardsSequance {
             return false;
         }
         if(!splitcardssotred){
-            this.sortCards();
+            this.sortSplitCardsBySuitValue();
         }
         Iterator<Card> it=splitcards.iterator();
         int suitcount=0;

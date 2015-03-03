@@ -83,6 +83,10 @@ public class Card {
     public int getACEVALUE(){
         return ACE_VALUE;
     }
+    
+    public String toString(){
+        return card;
+    }
 }
 
     

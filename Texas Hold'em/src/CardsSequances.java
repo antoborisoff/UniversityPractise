@@ -35,4 +35,8 @@ public class CardsSequances {
             System.out.println(it.next());
         }
     }
+    
+    public ArrayList<CardsSequance> getCardsSequances(){
+        return sequances;
+    }
 }

@@ -1,0 +1,57 @@
+GET http://localhost:8888/chat?token=TN11EN HTTP/1.1
+User-Agent: Java/1.8.0_20
+Host: localhost:8888
+Accept: text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2
+Connection: keep-alive
+
+
+HTTP/1.1 200 OK
+Date: Tue, 24 Mar 2015 08:46:05 GMT
+Access-control-allow-origin: *
+Content-length: 83
+
+{"messages":["Hello!","How are you?","I'm fine.And you?","Good."],"token":"TN43EN"}
+
+------------------------------------------------------------------
+
+GET http://localhost:8888/chat?token=TN43EN HTTP/1.1
+User-Agent: Java/1.8.0_20
+Host: localhost:8888
+Accept: text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2
+Connection: keep-alive
+
+
+HTTP/1.1 200 OK
+Date: Tue, 24 Mar 2015 08:54:46 GMT
+Access-control-allow-origin: *
+Content-length: 39
+
+{"messages":["Good."],"token":"TN19EN"}
+
+------------------------------------------------------------------
+
+GET http://localhost:8888/chat?token=TN51EN HTTP/1.1
+User-Agent: Java/1.8.0_20
+Host: localhost:8888
+Accept: text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2
+Connection: keep-alive
+
+
+HTTP/1.1 200 Fiddler Generated
+Date: Tue, 24 Mar 2015 09:53:13 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: close
+Cache-Control: no-cache, must-revalidate
+Timestamp: 12:53:13.847
+
+<!doctype html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Fiddler Echo Service</title></head><body style="font-family: arial,sans-serif;"><h1>Fiddler Echo Service</h1><br /><pre>GET /chat?token=TN51EN HTTP/1.1
+User-Agent: Java/1.8.0_20
+Host: localhost:8888
+Accept: text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2
+Connection: keep-alive
+
+</pre>This page returned a <b>HTTP/200</b> response <br />Originating Process Information: <code>java:41956</code><br /><hr /><ul><li>To configure Fiddler as a reverse proxy instead of seeing this page, see <a href='http://fiddler2.com/r/?REVERSEPROXY'>Reverse Proxy Setup</a><li>You can download the <a href="FiddlerRoot.cer">FiddlerRoot certificate</a></ul></body></html>
+
+------------------------------------------------------------------
+

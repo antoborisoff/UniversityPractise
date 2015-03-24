@@ -1,0 +1,11 @@
+GET http://192.168.199.10:8888/chat?token=TN43EN HTTP/1.1
+Host: 192.168.199.10:8888
+User-Agent: Composer
+
+
+HTTP/1.1 200 OK
+Date: Tue, 24 Mar 2015 08:54:46 GMT
+Access-control-allow-origin: *
+Content-length: 39
+
+{"messages":["Good."],"token":"TN19EN"}

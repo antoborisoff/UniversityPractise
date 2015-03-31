@@ -6,8 +6,6 @@ import org.json.simple.parser.ParseException;
 import java.io.*;
 import java.util.List;
 
-import java.util.Iterator;
-
 public class MessageExchange {
 
     private JSONParser jsonParser = new JSONParser();

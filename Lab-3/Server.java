@@ -13,6 +13,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.util.Iterator;
+import org.json.simple.JSONObject;
+
 public class Server implements HttpHandler {
     private List<Message> history = new ArrayList<Message>();
     private MessageExchange messageExchange = new MessageExchange();
@@ -47,7 +50,11 @@ public class Server implements HttpHandler {
             response = doGet(httpExchange);
         } else if ("POST".equals(httpExchange.getRequestMethod())) {
             doPost(httpExchange);
-        } else {
+        } else if ("DELETE".equals(httpExchange.getRequestMethod())) {
+            doDelete(httpExchange);
+        }else if ("PUT".equals(httpExchange.getRequestMethod())) {
+            doPut(httpExchange);
+        }else {
             response = "Unsupported http method: " + httpExchange.getRequestMethod();
         }
 
@@ -71,15 +78,55 @@ public class Server implements HttpHandler {
 
     private void doPost(HttpExchange httpExchange) {
         try {
-            System.out.println("Got");
             Message message = messageExchange.getClientMessage(httpExchange.getRequestBody());
-            System.out.println("Get Message from User : " + message.message);
+            System.out.println("Get Message from " + message.username+ ": " + message.message);
             history.add(message);
         } catch (ParseException e) {
             System.err.println("Invalid user message: " + httpExchange.getRequestBody() + " " + e.getMessage());
         }
     }
+    
+    private void doDelete(HttpExchange httpExchange) {
+        try {
+            String inputstreamtostring=messageExchange.inputStreamToString(httpExchange.getRequestBody());
+            JSONObject jsonobject=messageExchange.getJSONObject(inputstreamtostring);
+            int id=Integer.parseInt(jsonobject.get("id").toString());
+            Iterator<Message> it=history.listIterator();
+            Message buf;
+            boolean found=false;
+            while(it.hasNext()&&(!found)){
+                buf=it.next();
+                if(buf.id==id){
+                    found=true;
+                    history.remove(buf);
+                }
+            }
+        } catch (ParseException e) {
+            System.err.println("Invalid user message: " + httpExchange.getRequestBody() + " " + e.getMessage());
+        }
+    }
 
+    private void doPut(HttpExchange httpExchange) {
+        try {
+            Message message = messageExchange.getClientMessage(httpExchange.getRequestBody());
+            System.out.println("Get Message from " + message.username+ ": " + message.message);
+            Iterator<Message> it=history.listIterator();
+            Message buf;
+            boolean found=false;
+            while(it.hasNext()&&(!found)){
+                buf=it.next();
+                if(buf.id==message.id){
+                    found=true;
+                    int index=history.indexOf(buf);
+                    history.remove(buf);
+                    history.add(index, message);
+                }
+            }
+        } catch (ParseException e) {
+            System.err.println("Invalid user message: " + httpExchange.getRequestBody() + " " + e.getMessage());
+        }
+    }
+    
     private void sendResponse(HttpExchange httpExchange, String response) {
         try {
             byte[] bytes = response.getBytes();

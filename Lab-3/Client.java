@@ -69,7 +69,7 @@ public class Client implements Runnable {
                 message.message=(String)messagejsonObject.get("message");
                 message.id=Integer.parseInt(messagejsonObject.get("id").toString());
                 message.username=(String)messagejsonObject.get("username");
-                System.out.println(message.username+":"+message.message);
+                System.out.println(message.username + ":" + message.message);
                 list.add(message);
             }
         } catch (IOException e) {

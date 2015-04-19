@@ -31,8 +31,9 @@ public class Server implements HttpHandler {
                 HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
                 System.out.println("Server started.");
                 String serverHost = InetAddress.getLocalHost().getHostAddress();
-                //System.out.println("Get list of messages: GET http://" + serverHost + ":" + port + "/chat?token={token}");
-               //System.out.println("Send message: POST http://" + serverHost + ":" + port + "/chat provide body json in format {\"message\" : \"{message}\"} ");
+                System.out.println("Get list of messages: GET http://" + serverHost + ":" + port + "/chat?token=TN11D11EN");
+               // System.out.println("Get list of messages: GET http://" + serverHost + ":" + port + "/chat?token={token}");
+               // System.out.println("Send message: POST http://" + serverHost + ":" + port + "/chat provide body json in format {\"message\" : \"{message}\"} ");
 
                 server.createContext("/chat", new Server());
                 server.setExecutor(null);
@@ -69,10 +70,15 @@ public class Server implements HttpHandler {
         if (query != null) {
             Map<String, String> map = queryToMap(query);
             String token = map.get("token");
+            
+            System.out.println("token:"+token);
+            
             if (token != null && !"".equals(token)) {
                 int indexHistory = messageExchange.getIndexHistory(token);
                 int indexPutDeleteList = messageExchange.getIndexPutDeleteList(token);
-                return messageExchange.getServerResponse(history.subList(indexHistory, history.size()),putdeletelist.subList(indexPutDeleteList, putdeletelist.size()));
+                return messageExchange.getServerResponse(history.subList(indexHistory, history.size()),
+                        putdeletelist.subList(indexPutDeleteList, putdeletelist.size()),
+                        history.size(),putdeletelist.size());
             } else {
                 return "Token query parameter is absent in url: " + query;
             }
@@ -92,10 +98,12 @@ public class Server implements HttpHandler {
     
     private void doDelete(HttpExchange httpExchange) {
         try {
-            String inputstreamtostring=messageExchange.inputStreamToString(httpExchange.getRequestBody());
+            /*String inputstreamtostring=messageExchange.inputStreamToString(httpExchange.getRequestBody());
             JSONObject jsonobject=messageExchange.getJSONObject(inputstreamtostring);
             String id=(String)jsonobject.get("id");
-            Message message=new Message(id,"DELETE",null,null);
+            Message message=new Message(id,null,null,null);*/
+            Message message = messageExchange.getClientMessage(httpExchange.getRequestBody());
+            System.out.println("Message from " + message.getUsername() + ":Deleted!" + ": " + message.getId());
             putdeletelist.add(message);
         } catch (ParseException e) {
             System.err.println("Invalid user message: " + httpExchange.getRequestBody() + " " + e.getMessage());
@@ -105,7 +113,7 @@ public class Server implements HttpHandler {
     private void doPut(HttpExchange httpExchange) {
         try {
             Message message = messageExchange.getClientMessage(httpExchange.getRequestBody());
-            System.out.println("Get Message from " + message.getUsername() + ":Changed!" + ": " + message.getMessage());
+            System.out.println("Message from " + message.getUsername() + ":Changed!" + ": " + message.getMessage());
             putdeletelist.add(message);
         } catch (ParseException e) {
             System.err.println("Invalid user message: " + httpExchange.getRequestBody() + " " + e.getMessage());
@@ -141,5 +149,13 @@ public class Server implements HttpHandler {
             }
         }
         return result;
+    }
+    
+    int getHistorySize(){
+        return history.size();
+    }
+    
+    int getPutDeleteListSize(){
+        return putdeletelist.size();
     }
 }

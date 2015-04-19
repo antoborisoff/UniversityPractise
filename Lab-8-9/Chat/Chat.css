@@ -1,0 +1,73 @@
+.message_history{
+	position:relative;
+	top:20px;
+	left:50px;
+	width:420px;
+	height:290px;
+	overflow-y:auto;
+	}
+.my_message{
+	position:relative;
+	top:20px;
+	width:383px;
+	height:130px;
+	background:white;
+	}
+.not_my_message{
+	position:relative;
+	top:20px;
+	width:380px;
+	height:150px;
+	}
+.message{
+	position:absolute;
+	top:320px;
+	left:50px;
+	width:50px;
+	}
+.username{
+	position:absolute;
+	top:320px;
+	left:500px;
+	width:50px;
+	}
+h1{
+	color:skyblue;
+	margin-left:5%;
+	}
+.indicator{
+	position:absolute;
+	left:500px;
+	top:20px;
+	}
+.button_send{
+	position:absolute;
+	left:50px;
+	top:420px;
+	}
+.button_edit{
+	position:absolute;
+	left:500px;
+	top:370px;
+	}
+.button_save{
+	position:absolute;
+	left:550px;
+	top:370px;
+	}
+button{
+	border:solid black;
+	border-width:1px;
+	border-radius:10px;
+	}
+textarea{ 
+	border:solid black;
+	border-width:1px;
+	background:white;
+	border-radius:3px;
+	padding:5px;
+	overflow:auto;
+	}
+.wrapper{
+	position:relative;
+	}

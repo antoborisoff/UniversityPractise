@@ -52,8 +52,8 @@ class Message {
 
     public String toString() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("message", this.message);
         jsonObject.put("id", this.id);
+        jsonObject.put("message", this.message);
         jsonObject.put("username", this.username);
         jsonObject.put("idClient", this.idClient);
         return jsonObject.toJSONString();

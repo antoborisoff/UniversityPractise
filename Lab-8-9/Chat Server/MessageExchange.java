@@ -30,18 +30,18 @@ public class MessageExchange {
         return (Integer.valueOf(token.substring(pos+1, token.length()-2)) - 11) / 8;
     }
     
-    public String getServerResponse(List<Message> messages,List<Message> putdeletelist) {
+    public String getServerResponse(List<Message> messages,List<Message> putdeletelist,int historySize,int putdeletelistsize) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("messages", messages);
         jsonObject.put("putdeletelist", putdeletelist);
-        jsonObject.put("token", getToken(messages.size(),putdeletelist.size()));
+        jsonObject.put("token", getToken(historySize,putdeletelistsize));
         return jsonObject.toJSONString();
     }
 
     public String getClientSendMessageRequest(String message,String id,String username,String idClient) {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("message", message);
         jsonObject.put("id",id);
+        jsonObject.put("message", message);
         jsonObject.put("username", username);
         jsonObject.put("idClient", idClient);
         return jsonObject.toJSONString();
@@ -50,8 +50,8 @@ public class MessageExchange {
     public Message getClientMessage(InputStream inputStream) throws ParseException {
         Message message=new Message();
         JSONObject jsonobject=getJSONObject(inputStreamToString(inputStream));
-        message.setMessage((String)jsonobject.get("message"));
         message.setId((String)jsonobject.get("id"));
+        message.setMessage((String)jsonobject.get("message"));
         message.setUsername((String)jsonobject.get("username"));
         message.setIDClient((String)jsonobject.get("idClient"));
         return  message;

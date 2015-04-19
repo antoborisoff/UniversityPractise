@@ -55,6 +55,7 @@ function restoreMessageHistory(continueWith) {
 
 	get(url,function(responseText){
 		setIndicatorGreen();
+		output("Connected.");
 
 		var response = JSON.parse(responseText);
 		appState.token=response.token;
@@ -172,6 +173,7 @@ function sendMessage(){
 	message_textarea.value="";
 	post(appState.mainUrl,JSON.stringify(message),function(){
 		setIndicatorGreen();
+		output("Connected.");
 
 		restoreMessageHistory();
 		});
@@ -182,7 +184,7 @@ function createNewMyMessage(message,sender){
 	divMessage.classList.add('my_message');
 	var new_message_textarea = document.createElement('textarea');
 	new_message_textarea.classList.add("text");
-	new_message_textarea.setAttribute("cols",50);
+	new_message_textarea.setAttribute("cols",135);
 	new_message_textarea.setAttribute("rows",5);
 	new_message_textarea.setAttribute("readonly","true");
 	new_message_textarea.setAttribute("wrap","on");
@@ -223,7 +225,7 @@ function createNewNotMyMessage(message,sender){
 	divMessage.classList.add('not_my_message');
 	var new_message_textarea = document.createElement('textarea');
 	new_message_textarea.classList.add("text");
-	new_message_textarea.setAttribute("cols",50);
+	new_message_textarea.setAttribute("cols",135);
 	new_message_textarea.setAttribute("rows",5);
 	new_message_textarea.setAttribute("readonly","true");
 	new_message_textarea.setAttribute("wrap","on");
@@ -260,6 +262,7 @@ function saveInMessageHistory(parentElement){
 
 	put(appState.mainUrl,JSON.stringify(message),function(){
 		setIndicatorGreen();
+		output("Connected.");
 
 		restoreMessageHistory();
 	});
@@ -272,6 +275,7 @@ function deleteInMessageHistory(parentElement){
 
 	del(appState.mainUrl,JSON.stringify(message),function(){
 		setIndicatorGreen();
+		output("Connected.");
 
 		restoreMessageHistory();
 	});

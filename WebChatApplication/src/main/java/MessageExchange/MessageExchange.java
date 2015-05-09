@@ -48,7 +48,7 @@ public class MessageExchange {
         Message message=new Message();
         JSONObject jsonobject=getJSONObject(data);
         message.setId((String)jsonobject.get("id"));
-        message.setMessage((String)jsonobject.get("message"));
+        message.setMessageText((String)jsonobject.get("message"));
         message.setUsername((String)jsonobject.get("username"));
         message.setIDClient((String)jsonobject.get("idClient"));
         return  message;

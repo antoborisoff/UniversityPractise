@@ -30,12 +30,20 @@ public final class MessageAndActionStorage {
         ACTIONS.add(action);
     }
 
-    public static void addAll(Message[] messages) {
+    public static void addAllMessages(Message[] messages) {
         MESSAGES.addAll(Arrays.asList(messages));
     }
 
-    public static void addAll(List<Message> messages) {
+    public static void addAllActions(Message[] actions) {
+        ACTIONS.addAll(Arrays.asList(actions));
+    }
+
+    public static void addAllMessages(List<Message> messages) {
         MESSAGES.addAll(messages);
+    }
+
+    public static void addAllActions(List<Message> actions) {
+        ACTIONS.addAll(actions);
     }
 
     public static int getMessagesSize() {

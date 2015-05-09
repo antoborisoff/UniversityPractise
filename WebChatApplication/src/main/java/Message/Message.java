@@ -7,7 +7,7 @@ import java.lang.Override;
 public class Message {
 
     private String id;
-    private String message;
+    private String messagetext;
     private String username;
     private String idClient;
 
@@ -16,7 +16,7 @@ public class Message {
     
     public Message(String id, String message, String username, String idClinet) {
         this.id = id;
-        this.message = message;
+        this.messagetext = message;
         this.username = username;
         this.idClient = idClient;
     }
@@ -29,12 +29,12 @@ public class Message {
         this.id = value;
     }
 
-    public String getMessage() {
-        return this.message;
+    public String getMessageText() {
+        return this.messagetext;
     }
 
-    public void setMessage(String value) {
-        this.message = value;
+    public void setMessageText(String value) {
+        this.messagetext = value;
     }
 
     public String getUsername() {
@@ -57,7 +57,7 @@ public class Message {
     public String toString() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id", this.id);
-        jsonObject.put("message", this.message);
+        jsonObject.put("message", this.messagetext);
         jsonObject.put("username", this.username);
         jsonObject.put("idClient", this.idClient);
         return jsonObject.toJSONString();

@@ -7,6 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 
 
 import java.io.IOException;
@@ -20,6 +22,9 @@ import org.apache.log4j.Logger;
 import main.java.MessageExchange.MessageExchange;
 import main.java.Message.Message;
 import main.java.Storage.MessageAndActionStorage;
+import org.xml.sax.SAXException;
+
+import main.java.XMLStorage.XMLHistoryUtil;
 
 @WebServlet("/chat")
 public class ChatServlet extends HttpServlet{
@@ -27,12 +32,25 @@ public class ChatServlet extends HttpServlet{
 
     @Override
     public void init() throws ServletException{
-
+        try {
+            loadHistory();
+        } catch (IOException  e) {
+            logger.error(e);
+        }
+        catch ( ParserConfigurationException e) {
+            logger.error(e);
+        }
+        catch (SAXException e) {
+            logger.error(e);
+        }
+        catch (TransformerException e) {
+            logger.error(e);
+        }
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        logger.info("doGet");
+        logger.info("doGet.");
         String token = request.getParameter("token");
         logger.info("Token " + token);
 
@@ -47,6 +65,7 @@ public class ChatServlet extends HttpServlet{
             PrintWriter out = response.getWriter();
             out.print(serverResponse);
             out.flush();
+            logger.info("End of doGet.");
         } else {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "'token' parameter needed");
         }
@@ -69,11 +88,37 @@ public class ChatServlet extends HttpServlet{
         try {
             Message message = MessageExchange.getClientMessage(data);
             MessageAndActionStorage.addMessage(message);
-            //XMLHistoryUtil.addData(task);
+            XMLHistoryUtil.addMessage(message);
             response.setStatus(HttpServletResponse.SC_OK);
-        } catch (ParseException /*| ParserConfigurationException | SAXException | TransformerException*/ e) {
+        } catch (ParseException  e) {
+            logger.error(e);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        catch ( ParserConfigurationException e) {
+            logger.error(e);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        catch (SAXException e) {
+            logger.error(e);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        catch (TransformerException e) {
             logger.error(e);
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
+
+    private void loadHistory() throws SAXException, IOException, ParserConfigurationException, TransformerException {
+        System.out.println("1");
+        if (XMLHistoryUtil.doesStorageExist()) {
+            MessageAndActionStorage.addAllMessages(XMLHistoryUtil.getMessages());
+            System.out.println("44");
+            MessageAndActionStorage.addAllActions(XMLHistoryUtil.getActions());
+        } else {
+            System.out.println("error");
+            XMLHistoryUtil.createStorage();
+        }
+    }
+
+
 }

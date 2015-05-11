@@ -10,19 +10,31 @@ public class Message {
     private String messagetext;
     private String username;
     private String idClient;
+    private String isDeleteAction;
 
     public Message(){
     }
-    
-    public Message(String id, String message, String username, String idClinet) {
+
+
+
+    public Message(String id, String message, String username, String idClinet,String isDeleteAction) {
         this.id = id;
         this.messagetext = message;
         this.username = username;
         this.idClient = idClient;
+        this.isDeleteAction=isDeleteAction;
     }
 
     public String getId() {
         return this.id;
+    }
+
+    public String getIsDeleteAction(){
+        return this.isDeleteAction;
+    }
+
+    public void setIsDeleteAction(String value){
+        this.isDeleteAction=value;
     }
 
     public void setId(String value) {
@@ -60,6 +72,7 @@ public class Message {
         jsonObject.put("message", this.messagetext);
         jsonObject.put("username", this.username);
         jsonObject.put("idClient", this.idClient);
+        jsonObject.put("isDeleteAction",this.isDeleteAction);
         return jsonObject.toJSONString();
     }
 }

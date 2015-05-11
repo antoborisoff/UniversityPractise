@@ -35,22 +35,23 @@ public class MessageExchange {
         return jsonObject.toJSONString();
     }
 
-    public static String getClientSendMessageRequest(String message,String id,String username,String idClient) {
+    /*public static String getClientSendMessageRequest(String message,String id,String username,String idClient) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id",id);
         jsonObject.put("message", message);
         jsonObject.put("username", username);
         jsonObject.put("idClient", idClient);
         return jsonObject.toJSONString();
-    }
+    }*/
 
     public static Message getClientMessage(String data) throws ParseException {
         Message message=new Message();
         JSONObject jsonobject=getJSONObject(data);
-        message.setId((String)jsonobject.get("id"));
-        message.setMessageText((String)jsonobject.get("message"));
-        message.setUsername((String)jsonobject.get("username"));
-        message.setIDClient((String)jsonobject.get("idClient"));
+        message.setId((String) jsonobject.get("id"));
+        message.setMessageText((String) jsonobject.get("message"));
+        message.setUsername((String) jsonobject.get("username"));
+        message.setIDClient((String) jsonobject.get("idClient"));
+        message.setIsDeleteAction( jsonobject.get("isDeleteAction").toString());
         return  message;
     }
 

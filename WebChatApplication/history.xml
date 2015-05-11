@@ -1,16 +1,79 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <HISTORY>
 <MESSAGES>
-<message id="443615777566">
-<messagetext>fghjk</messagetext>
+<message id="101039373019">
+<messagetext>Hello/</messagetext>
 <username>User</username>
-<idClient>1298068365981</idClient>
+<idClient>8809761301</idClient>
+<isDeleteAction>false</isDeleteAction>
 </message>
-<message id="442559941432">
+<message id="90939246003">
 <messagetext>Hi</messagetext>
 <username>User</username>
-<idClient>208085310357</idClient>
+<idClient>155248060559</idClient>
+<isDeleteAction>false</isDeleteAction>
+</message>
+<message id="4896412377">
+<messagetext>Hi</messagetext>
+<username>User</username>
+<idClient>10785095648</idClient>
+<isDeleteAction>false</isDeleteAction>
+</message>
+<message id="460181667082">
+<messagetext>Hello?</messagetext>
+<username>User</username>
+<idClient>1014431161092</idClient>
+<isDeleteAction>false</isDeleteAction>
+</message>
+<message id="616052654531">
+<messagetext>what's up/</messagetext>
+<username>User</username>
+<idClient>10785095648</idClient>
+<isDeleteAction>false</isDeleteAction>
+</message>
+<message id="98543135832">
+<messagetext>Nothing much/</messagetext>
+<username>User</username>
+<idClient>1014431161092</idClient>
+<isDeleteAction>false</isDeleteAction>
 </message>
 </MESSAGES>
-<ACTIONS/>
+<ACTIONS>
+<action id="101039373019">
+<messagetext>Hello?</messagetext>
+<username>User</username>
+<idClient>8809761301</idClient>
+<isDeleteAction>false</isDeleteAction>
+</action>
+<action id="90939246003">
+<messagetext>Hi</messagetext>
+<username>User</username>
+<idClient>155248060559</idClient>
+<isDeleteAction>true</isDeleteAction>
+</action>
+<action id="98543135832">
+<messagetext>Nothing much/</messagetext>
+<username>User</username>
+<idClient>1014431161092</idClient>
+<isDeleteAction>true</isDeleteAction>
+</action>
+<action id="4896412377">
+<messagetext>Hi</messagetext>
+<username>User</username>
+<idClient>10785095648</idClient>
+<isDeleteAction>true</isDeleteAction>
+</action>
+<action id="460181667082">
+<messagetext>Hello?</messagetext>
+<username>User</username>
+<idClient>1014431161092</idClient>
+<isDeleteAction>true</isDeleteAction>
+</action>
+<action id="616052654531">
+<messagetext>what's up/</messagetext>
+<username>User</username>
+<idClient>10785095648</idClient>
+<isDeleteAction>true</isDeleteAction>
+</action>
+</ACTIONS>
 </HISTORY>

@@ -90,6 +90,83 @@ public class ChatServlet extends HttpServlet{
             MessageAndActionStorage.addMessage(message);
             XMLHistoryUtil.addMessage(message);
             response.setStatus(HttpServletResponse.SC_OK);
+            logger.info("End of doPost.");
+        } catch (ParseException  e) {
+            logger.error(e);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        catch ( ParserConfigurationException e) {
+            logger.error(e);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        catch (SAXException e) {
+            logger.error(e);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        catch (TransformerException e) {
+            logger.error(e);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+        logger.info("doPut");
+
+        StringBuilder sb = new StringBuilder();
+        BufferedReader reader = request.getReader();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line);
+        }
+        String data = sb.toString();
+
+        logger.info(data);
+
+        try {
+            Message action = MessageExchange.getClientMessage(data);
+            MessageAndActionStorage.addAction(action);
+            XMLHistoryUtil.addAction(action);
+            response.setStatus(HttpServletResponse.SC_OK);
+            logger.info("End of doPut.");
+        } catch (ParseException  e) {
+            logger.error(e);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        catch ( ParserConfigurationException e) {
+            logger.error(e);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        catch (SAXException e) {
+            logger.error(e);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        catch (TransformerException e) {
+            logger.error(e);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+        logger.info("doDelete");
+
+        StringBuilder sb = new StringBuilder();
+        BufferedReader reader = request.getReader();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line);
+        }
+        String data = sb.toString();
+
+        logger.info(data);
+
+        try {
+            Message action = MessageExchange.getClientMessage(data);
+            MessageAndActionStorage.addAction(action);
+            XMLHistoryUtil.addAction(action);
+            response.setStatus(HttpServletResponse.SC_OK);
+            logger.info("End of doDelete.");
         } catch (ParseException  e) {
             logger.error(e);
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
@@ -109,13 +186,10 @@ public class ChatServlet extends HttpServlet{
     }
 
     private void loadHistory() throws SAXException, IOException, ParserConfigurationException, TransformerException {
-        System.out.println("1");
         if (XMLHistoryUtil.doesStorageExist()) {
             MessageAndActionStorage.addAllMessages(XMLHistoryUtil.getMessages());
-            System.out.println("44");
             MessageAndActionStorage.addAllActions(XMLHistoryUtil.getActions());
         } else {
-            System.out.println("error");
             XMLHistoryUtil.createStorage();
         }
     }

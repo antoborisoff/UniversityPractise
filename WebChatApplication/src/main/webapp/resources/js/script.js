@@ -4,17 +4,18 @@ var uniqueId = function() {
 	return Math.floor(date * random).toString();
 };
 
-var theMessage = function(text, sender,idClient) {
+var theMessage = function(text, sender,idClient,isDeleteAction) {
 	return {
 		id: uniqueId(),
 		message:text,
 		username: sender,
-		idClient:idClient
+		idClient:idClient,
+        isDeleteAction:isDeleteAction
 	};
 };
 //////////////////////////////////
 var appState = {
-	mainUrl : 'http://localhost:8080/chat',
+	mainUrl : 'http://localhost:8080/WebChatApplication/chat',
 	messageHistory:[],
 	token : 'TN11D11EN',
 	idClient:uniqueId(),
@@ -92,7 +93,7 @@ function doPutDeleteList(messageHistory,messagesforaddition,putdeletelist){
 	    if(messageindex==appState.messageHistory.length){
 	    	messageindex=findMessageIndex(messagestoadd,putdeletelist[j]);
 	    	if(messageindex!=messagestoadd.length){
-	    		if(putdeletelist[j].message==null){
+	    		if(putdeletelist[j].isDeleteAction=="true"){
 	               messagestoadd.splice(messageindex,1);
 		        }
 		        else{
@@ -101,7 +102,7 @@ function doPutDeleteList(messageHistory,messagesforaddition,putdeletelist){
 	    	}
 	    }
 	    else{
-		   if(putdeletelist[j].message==null){
+		   if(putdeletelist[j].isDeleteAction=="true"){
 	            appState.messageHistory.splice(messageindex,1);
 	            message_history.removeChild( listofmessagelements[messageindex].getElementsByTagName('textarea')[0].parentNode);
 		   }
@@ -151,6 +152,7 @@ function editUserName(){
 	var username_textarea=document.getElementsByClassName("username_textarea")[0];
 	username_textarea.removeAttribute("readonly");
 }
+
 function saveUserName(){
 	var username_textarea=document.getElementsByClassName("username_textarea")[0];
 	username_textarea.setAttribute("readonly","true");
@@ -163,19 +165,17 @@ function sendMessage(){
 	if(!message_textarea.value){
 		return;
 	}
-	var message_history=document.getElementsByClassName("message_history")[0];
 	var message_text=message_textarea.value;
-	var new_my_message=createNewMyMessage(message_text,null);
 	
 	var username=document.getElementsByClassName("username_textarea")[0].value;
-	var message=theMessage(message_text,username,appState.idClient);
+	var message=theMessage(message_text,username,appState.idClient,"false");
 
 	message_textarea.value="";
 	post(appState.mainUrl,JSON.stringify(message),function(){
 		setIndicatorGreen();
 		output("Connected.");
 
-		restoreMessageHistory();
+		//restoreMessageHistory();
 		});
 }
 //////////////////////////////////
@@ -220,6 +220,7 @@ function createNewMyMessage(message,sender){
 	divMessage.appendChild(new_message_textarea);
 	return divMessage;
 }
+
 function createNewNotMyMessage(message,sender){
 	var divMessage=document.createElement('div');
 	divMessage.classList.add('not_my_message');
@@ -252,32 +253,36 @@ function editInMessageHistory(parentElement){
 	var my_message_textarea=parentElement.getElementsByClassName("text")[0];
 	my_message_textarea.removeAttribute("readonly");
 }
+
 function saveInMessageHistory(parentElement){
 	var my_message_textarea=parentElement.getElementsByClassName("text")[0];
 	my_message_textarea.setAttribute("readonly","true");
 
     var username=document.getElementsByClassName("username_textarea")[0].value;
-	var message=theMessage(my_message_textarea.value,username,appState.idClient);
+	var message=theMessage(my_message_textarea.value,username,appState.idClient,"false");
 	message.id=parentElement.id;
 
 	put(appState.mainUrl,JSON.stringify(message),function(){
 		setIndicatorGreen();
 		output("Connected.");
 
-		restoreMessageHistory();
+		//restoreMessageHistory();
 	});
 }
+
 function deleteInMessageHistory(parentElement){
 	var message_history=document.getElementsByClassName("message_history")[0];
 
-	var message=theMessage(null,appState.usernamestorage,appState.idClient);
+    var my_message_textarea=parentElement.getElementsByClassName("text")[0];
+
+	var message=theMessage(my_message_textarea.value,appState.usernamestorage,appState.idClient,"true");
 	message.id=parentElement.id;
 
 	del(appState.mainUrl,JSON.stringify(message),function(){
 		setIndicatorGreen();
 		output("Connected.");
 
-		restoreMessageHistory();
+		//restoreMessageHistory();
 	});
 }
 /////////////////////////////////////////////////
@@ -305,7 +310,6 @@ function isError(text) {
 
 	return !!obj.error;
 }
-
 
 window.onerror = function(err) {
 	output(err.toString());

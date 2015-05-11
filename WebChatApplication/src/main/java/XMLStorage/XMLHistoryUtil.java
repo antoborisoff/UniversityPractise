@@ -36,6 +36,7 @@ public final class XMLHistoryUtil {
 	private static final String ID = "id";
 	private static final String USERNAME = "username";
 	private static final String IDCLIENT = "idClient";
+	private static final String ISDELETEACTION = "isDeleteAction";
 
 	private XMLHistoryUtil() {
 	}
@@ -87,6 +88,9 @@ public final class XMLHistoryUtil {
 		idClient.appendChild(document.createTextNode(message.getIDClient()));
 		messageElement.appendChild(idClient);
 
+		Element isDeleteAction = document.createElement(ISDELETEACTION);
+		isDeleteAction.appendChild(document.createTextNode(message.getIsDeleteAction()));
+		messageElement.appendChild(isDeleteAction);
 
 		DOMSource source = new DOMSource(document);
 
@@ -123,6 +127,9 @@ public final class XMLHistoryUtil {
 		idClient.appendChild(document.createTextNode(action.getIDClient()));
 		actionElement.appendChild(idClient);
 
+		Element isDeleteAction = document.createElement(ISDELETEACTION);
+		isDeleteAction.appendChild(document.createTextNode(action.getIsDeleteAction()));
+		actionElement.appendChild(isDeleteAction);
 
 		DOMSource source = new DOMSource(document);
 
@@ -152,7 +159,8 @@ public final class XMLHistoryUtil {
 			String username = messageElement.getElementsByTagName(USERNAME).item(0).getTextContent();
             String idClient = messageElement.getElementsByTagName(IDCLIENT).item(0).getTextContent();
             String messagetext = messageElement.getElementsByTagName(MESSAGETEXT).item(0).getTextContent();
-			messages.add(new Message(id, messagetext, username,idClient));
+			String isDeleteAction = messageElement.getElementsByTagName(ISDELETEACTION).item(0).getTextContent();
+			messages.add(new Message(id, messagetext, username,idClient,isDeleteAction));
 		}
 		return messages;
 	}
@@ -172,7 +180,8 @@ public final class XMLHistoryUtil {
             String username = actionElement.getElementsByTagName(USERNAME).item(0).getTextContent();
             String idClient = actionElement.getElementsByTagName(IDCLIENT).item(0).getTextContent();
             String messagetext = actionElement.getElementsByTagName(MESSAGETEXT).item(0).getTextContent();
-            actions.add(new Message(id, messagetext, username, idClient));
+			String isDeleteAction = actionElement.getElementsByTagName(ISDELETEACTION).item(0).getTextContent();
+            actions.add(new Message(id, messagetext, username, idClient,isDeleteAction));
         }
         return actions;
     }

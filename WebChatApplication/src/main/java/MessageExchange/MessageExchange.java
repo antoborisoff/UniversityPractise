@@ -35,15 +35,6 @@ public class MessageExchange {
         return jsonObject.toJSONString();
     }
 
-    /*public static String getClientSendMessageRequest(String message,String id,String username,String idClient) {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id",id);
-        jsonObject.put("message", message);
-        jsonObject.put("username", username);
-        jsonObject.put("idClient", idClient);
-        return jsonObject.toJSONString();
-    }*/
-
     public static Message getClientMessage(String data) throws ParseException {
         Message message=new Message();
         JSONObject jsonobject=getJSONObject(data);

@@ -15,7 +15,7 @@ var theMessage = function(text, sender,idClient,isDeleteAction) {
 };
 //////////////////////////////////
 var appState = {
-	mainUrl : 'http://localhost:8080/WebChatApplication/chat',
+	mainUrl : 'chat',
 	messageHistory:[],
 	token : 'TN11D11EN',
 	idClient:uniqueId(),
@@ -316,7 +316,7 @@ window.onerror = function(err) {
 }
 //////////////////////////////////////////////////
 function get(url, continueWith, continueWithError) {
-	ajax('GET', url, null, continueWith, continueWithError);
+	ajax('GET', url, appState.token, continueWith, continueWithError);
 }
 
 function post(url, data, continueWith, continueWithError) {

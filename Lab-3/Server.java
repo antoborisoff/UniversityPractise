@@ -50,6 +50,8 @@ public class Server implements HttpHandler {
             response = doGet(httpExchange);
         } else if ("POST".equals(httpExchange.getRequestMethod())) {
             doPost(httpExchange);
+        }else if ("OPTIONS".equals(httpExchange.getRequestMethod())) {
+            response = "";
         } else if ("DELETE".equals(httpExchange.getRequestMethod())) {
             doDelete(httpExchange);
         }else if ("PUT".equals(httpExchange.getRequestMethod())) {
@@ -132,6 +134,9 @@ public class Server implements HttpHandler {
             byte[] bytes = response.getBytes();
             Headers headers = httpExchange.getResponseHeaders();
             headers.add("Access-Control-Allow-Origin","*");
+            if ("OPTIONS".equals(httpExchange.getRequestMethod())) {
+                headers.add("Access-Control-Allow-Methods", "PUT, DELETE, POST, GET, OPTIONS");
+            }
             httpExchange.sendResponseHeaders(200, bytes.length);
             OutputStream os = httpExchange.getResponseBody();
             os.write( bytes);

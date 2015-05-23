@@ -1,11 +1,13 @@
 package main.java.MessageExchange;
 
+import main.java.dao.MessageActionDao;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import main.java.Message.Message;
-import main.java.Storage.MessageAndActionStorage;
+
+import java.util.List;
 
 public class MessageExchange {
 
@@ -27,11 +29,13 @@ public class MessageExchange {
         return (Integer.valueOf(token.substring(pos+1, token.length()-2)) - 11) / 8;
     }
     
-    public static String getResponse(int indexMessages,int indexActions) {
+    public static String getResponse(int indexMessages,int indexActions,MessageActionDao MADao) {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("messages", MessageAndActionStorage.getMessagesByIndex(indexMessages));
-        jsonObject.put("putdeletelist", MessageAndActionStorage.getActionsByIndex(indexActions));
-        jsonObject.put("token", getToken(MessageAndActionStorage.getMessagesSize(),MessageAndActionStorage.getActionsSize()));
+        List<Message> messages=MADao.selectAllMessagesAfterIndex(indexMessages);
+        jsonObject.put("messages", messages);
+        List<Message> putdeletelist=MADao.selectAllActionsAfterIndex(indexActions);
+        jsonObject.put("putdeletelist", putdeletelist);
+        jsonObject.put("token", getToken(indexMessages + messages.size(), indexActions + putdeletelist.size()));
         return jsonObject.toJSONString();
     }
 

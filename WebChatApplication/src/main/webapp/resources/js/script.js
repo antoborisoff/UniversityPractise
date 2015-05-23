@@ -62,7 +62,6 @@ function restoreMessageHistory(continueWith) {
 		appState.token=response.token;
 		var messagestoadd=doPutDeleteList(appState.messageHistory,response.messages,response.putdeletelist);
 		createAllMessages(messagestoadd);
-		//output(appState);
 
 		continueWith && continueWith();
 	});
@@ -350,7 +349,7 @@ function ajax(method, url, data, continueWith, continueWithError) {
 			continueWithError('Error on the server side, response ' + xhr.responseText);
 			return;
 		}
-
+		
 		continueWith(xhr.responseText);
 	};    
 

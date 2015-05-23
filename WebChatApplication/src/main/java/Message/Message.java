@@ -17,7 +17,7 @@ public class Message {
 
 
 
-    public Message(String id, String message, String username, String idClinet,String isDeleteAction) {
+    public Message(String id, String message, String username, String idClient,String isDeleteAction) {
         this.id = id;
         this.messagetext = message;
         this.username = username;
